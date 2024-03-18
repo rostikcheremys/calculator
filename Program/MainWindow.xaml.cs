@@ -7,7 +7,7 @@ namespace Program
 {
     public partial class MainWindow : Window
     {
-        private void Button_Click(object sender, RoutedEventArgs e)
+        private void ButtonClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
             {
@@ -15,7 +15,6 @@ namespace Program
                 
                 if (Array.Exists(_numericButtons, element => element == buttonText))
                 {
-                    
                     new AppendText(TextBox, buttonText).Execute();
                 }
                 else if (Array.Exists(_operationButtons, element => element == buttonText))
@@ -28,38 +27,31 @@ namespace Program
                     switch (buttonText)
                     {
                         case ".":
-                            ICommand command = new AppendPoint(TextBox);
-                            command.Execute();
+                            new AppendPoint(TextBox).Execute();
                             break;
                         case "C":
-                            ICommand clearCommand = new ClearAll(TextBox);
-                            clearCommand.Execute();
+                            new ClearAll(TextBox).Execute();
                             break;
                         case "CE":
-                            ICommand clearEntryCommand = new ClearEntry(TextBox);
-                            clearEntryCommand.Execute();
+                            new ClearEntry(TextBox).Execute();
                             break;
                         case "⌫":
-                            ICommand removeLastCommand = new RemoveLast(TextBox);
-                            removeLastCommand.Execute();
+                            new RemoveLast(TextBox).Execute();
                             break;
                         case "=":
-                            ICommand calculateCommand = new Сalculation(TextBox);
-                            calculateCommand.Execute();
+                            new Сalculation(TextBox).Execute();
                             break;
                         default:
-                            ICommand defaultCommand = new AppendText(TextBox, buttonText);
-                            defaultCommand.Execute();
+                            new AppendText(TextBox, buttonText).Execute();
                             break;
                     }
                 }
             }
         }
         
-        private readonly string[] _numericButtons = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-        private readonly string[] _operationButtons = { "+", "-", "*", "/" };
-
-
+        private readonly string[]  _numericButtons = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
+        private readonly string[] _operationButtons = { "+", "-", "×", "÷" };
+       
         public MainWindow()
         {
             InitializeComponent();
@@ -86,7 +78,7 @@ namespace Program
             {
                 if (button is Button btn)
                 {
-                    btn.Click += Button_Click;
+                    btn.Click += ButtonClick;
                 }
             }
         }
