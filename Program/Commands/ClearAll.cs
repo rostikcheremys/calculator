@@ -2,11 +2,10 @@
 
 namespace Program.Commands;
 
-public class ClearAll(TextBox inputTextBox, TextBox outputTextBox) : ICommand
+public class ClearAll(TextBox textBox) : ICommand
 {
     public void Execute()
     {
-        inputTextBox.Text = string.Empty;
-        outputTextBox.Text = string.Empty;
+        textBox.Text = string.Empty;
     }
 }

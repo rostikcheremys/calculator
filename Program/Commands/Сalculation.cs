@@ -3,17 +3,21 @@ using System.Windows.Controls;
 
 namespace Program.Commands;
 
-public class Сalculation(TextBox inputTextBox, TextBox outputTextBox) : ICommand
+public class Сalculation(TextBox textBox) : ICommand
 {
     public void Execute()
     {
         try
         {
-            object expression = new DataTable().Compute(inputTextBox.Text, null);
+            if (!string.IsNullOrEmpty(textBox.Text))
+            {
+                if (!string.IsNullOrEmpty(textBox.Text))
+                {
+                    object expression = new DataTable().Compute(textBox.Text.Replace('×', '*').Replace('÷', '/'), null);
                     
-            inputTextBox.Text += "=";
-            outputTextBox.Text = expression.ToString();
-                    
+                    textBox.Text = expression.ToString() ?? string.Empty;
+                }
+            }
         }
         catch (Exception ex)
         {

@@ -4,10 +4,9 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         mc:Ignorable="d"
-        Title="Calculator " Height="500" Width="310">
+        Title="Calculator " Height="480" Width="310">
     <Grid x:Name="MainGrid" Background="#2a2a2a">
         <Grid.RowDefinitions>
-            <RowDefinition />
             <RowDefinition />
             <RowDefinition />
             <RowDefinition />
@@ -23,28 +22,27 @@
             <ColumnDefinition />
         </Grid.ColumnDefinitions>
         
-        <TextBox x:Name="DisplayOutput" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" FontSize="16"/>
-        <TextBox x:Name="DisplayInput" Grid.Row="1" Grid.Column="0" Grid.ColumnSpan="4" FontSize="16"/>
+        <TextBox x:Name="TextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="4" FontSize="22"  Foreground="White" Background="#2a2a2a"/>
         
-        <Button x:Name="ButtonClearEntry" Grid.Row="2" Grid.Column="0" Content="CE" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonClear" Grid.Row="2" Grid.Column="1" Content="C" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonRemoveLast" Grid.Row="2" Grid.Column="2" Content="⌫" FontSize="16" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonDivision" Grid.Row="2" Grid.Column="3" Content="÷" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonNine" Grid.Row="3" Grid.Column="0" Content="7" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonEight" Grid.Row="3" Grid.Column="1" Content="8" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonSeven" Grid.Row="3" Grid.Column="2" Content="9" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonMultiplication" Grid.Row="3" Grid.Column="3" Content="×" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonSix" Grid.Row="4" Grid.Column="0" Content="4" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonFive" Grid.Row="4" Grid.Column="1" Content="5" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonFour" Grid.Row="4" Grid.Column="2" Content="6" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonSubtraction" Grid.Row="4" Grid.Column="3" Content="-" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonThird" Grid.Row="5" Grid.Column="0" Content="1" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonTwo" Grid.Row="5" Grid.Column="1" Content="2" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonOne" Grid.Row="5" Grid.Column="2" Content="3" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonAddition" Grid.Row="5" Grid.Column="3" Grid.RowSpan="2" Content="+" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonZero" Grid.Row="6" Grid.Column="0" Content="0" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonPoint" Grid.Row="6" Grid.Column="1" Content="." FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
-        <Button x:Name="ButtonEquals" Grid.Row="6" Grid.Column="2" Content="=" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="1" Grid.Column="0" Content="CE" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="1" Grid.Column="1" Content="C" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="1" Grid.Column="2" Content="⌫" FontSize="16" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="1" Grid.Column="3" Content="÷" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="2" Grid.Column="0" Content="7" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="2" Grid.Column="1" Content="8" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="2" Grid.Column="2" Content="9" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="2" Grid.Column="3" Content="×" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="3" Grid.Column="0" Content="4" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="3" Grid.Column="1" Content="5" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="3" Grid.Column="2" Content="6" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="3" Grid.Column="3" Content="-" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="4" Grid.Column="0" Content="1" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="4" Grid.Column="1" Content="2" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="4" Grid.Column="2" Content="3" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" Content="+" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="5" Grid.Column="0" Content="0" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="5" Grid.Column="1" Content="." FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
+        <Button Grid.Row="5" Grid.Column="2" Content="=" FontSize="25" Margin="1" Foreground="White" Background="#202020"/>
     </Grid>
 </Window>
 

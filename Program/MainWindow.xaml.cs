@@ -12,26 +12,15 @@ namespace Program
             if (sender is Button button)
             {
                 string? buttonText = button.Content.ToString();
-
                 
                 if (Array.Exists(_numericButtons, element => element == buttonText))
                 {
-                    ICommand command = new AppendText(DisplayInput, buttonText);
-                    ICommand command2 = new AppendText(DisplayOutput, buttonText);
-                    command2.Execute();
-                    command.Execute();
+                    
+                    new AppendText(TextBox, buttonText).Execute();
                 }
-                
                 else if (Array.Exists(_operationButtons, element => element == buttonText))
                 {
-                    if (!string.IsNullOrEmpty(DisplayInput.Text))
-                    {
-                        ICommand command1 = new Operation(DisplayOutput, buttonText);
-                        ICommand command2 = new AppendText(DisplayOutput, buttonText);
-                        command2.Execute();
-                        command1.Execute();
-                        DisplayInput.Clear();
-                    }
+                    new Operation(TextBox, buttonText).Execute();
                 }
                 
                 else
@@ -39,27 +28,27 @@ namespace Program
                     switch (buttonText)
                     {
                         case ".":
-                            ICommand command = new AppendPoint(DisplayInput);
+                            ICommand command = new AppendPoint(TextBox);
                             command.Execute();
                             break;
                         case "C":
-                            ICommand clearCommand = new ClearAll(DisplayInput, DisplayOutput);
+                            ICommand clearCommand = new ClearAll(TextBox);
                             clearCommand.Execute();
                             break;
                         case "CE":
-                            ICommand clearEntryCommand = new ClearEntry(DisplayInput);
+                            ICommand clearEntryCommand = new ClearEntry(TextBox);
                             clearEntryCommand.Execute();
                             break;
-                        case "\u232b":
-                            ICommand removeLastCommand = new RemoveLast(DisplayInput);
+                        case "⌫":
+                            ICommand removeLastCommand = new RemoveLast(TextBox);
                             removeLastCommand.Execute();
                             break;
                         case "=":
-                            ICommand calculateCommand = new Сalculation(DisplayOutput, DisplayInput);
+                            ICommand calculateCommand = new Сalculation(TextBox);
                             calculateCommand.Execute();
                             break;
                         default:
-                            ICommand defaultCommand = new AppendText(DisplayInput, buttonText);
+                            ICommand defaultCommand = new AppendText(TextBox, buttonText);
                             defaultCommand.Execute();
                             break;
                     }
@@ -68,7 +57,7 @@ namespace Program
         }
         
         private readonly string[] _numericButtons = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9"};
-        private readonly string[] _operationButtons = { "+", "-", "×", "÷" };
+        private readonly string[] _operationButtons = { "+", "-", "*", "/" };
 
 
         public MainWindow()
