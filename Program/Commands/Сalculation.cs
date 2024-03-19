@@ -11,12 +11,9 @@ public class Сalculation(TextBox textBox) : ICommand
         {
             if (!string.IsNullOrEmpty(textBox.Text))
             {
-                if (!string.IsNullOrEmpty(textBox.Text))
-                {
-                    object expression = new DataTable().Compute(textBox.Text.Replace('×', '*').Replace('÷', '/'), null);
-                    
-                    textBox.Text = expression.ToString() ?? string.Empty;
-                }
+                object result = new DataTable().Compute(textBox.Text.Replace('×', '*').Replace('÷', '/'), null);
+
+                textBox.Text = result.ToString() ?? string.Empty;
             }
         }
         catch (Exception ex)

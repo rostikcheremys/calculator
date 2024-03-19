@@ -59,19 +59,6 @@ namespace Program
             InitializeCustomCulture();
         }
 
-        private void InitializeCustomCulture()
-        {
-            CultureInfo customCulture = new CultureInfo("en-US")
-            {
-                NumberFormat =
-                {
-                    NumberDecimalSeparator = "."
-                }
-            };
-            Thread.CurrentThread.CurrentCulture = customCulture;
-            Thread.CurrentThread.CurrentUICulture = customCulture;
-        }
-
         private void InitializeEventHandlers()
         {
             foreach (var button in MainGrid.Children)
@@ -81,6 +68,23 @@ namespace Program
                     btn.Click += ButtonClick;
                 }
             }
+            
+            MinWidth = 310;
+            MinHeight = 480;
+        }
+        
+        private void InitializeCustomCulture()
+        {
+            CultureInfo customCulture = new CultureInfo("en-US")
+            {
+                NumberFormat =
+                {
+                    NumberDecimalSeparator = "."
+                }
+            };
+            
+            Thread.CurrentThread.CurrentCulture = customCulture;
+            Thread.CurrentThread.CurrentUICulture = customCulture;
         }
     }
 }
