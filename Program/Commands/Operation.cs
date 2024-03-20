@@ -44,7 +44,7 @@ public class Operation(TextBox textBox, string? operation, string? operationPatt
         {
             textBox.Text = textBox.Text.Substring(0, textBox.Text.Length - 1);
             
-            new Calculation(textBox, operators).Execute();
+            MainWindow.PreviousAction(textBox.Text.Split(operators)[0]);
             
             textBox.Text += operation;
         }

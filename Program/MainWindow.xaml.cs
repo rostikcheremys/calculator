@@ -13,9 +13,39 @@ namespace Program
         private readonly char[] _operators = { '+', '-', '*', '/' };
         private static string _previousAction = "";
         
-        public static void PreviousAction(string expression)
+        public MainWindow()
         {
-            _previousAction = expression;
+            InitializeComponent();
+            InitializeEventHandlers();
+            InitializeCustomCulture();
+        }
+
+        private void InitializeEventHandlers()
+        {
+            foreach (var button in MainGrid.Children)
+            {
+                if (button is Button btn)
+                {
+                    btn.Click += ButtonClick;
+                }
+            }
+            
+            MinWidth = 310;
+            MinHeight = 480;
+        }
+        
+        private void InitializeCustomCulture()
+        {
+            CultureInfo customCulture = new CultureInfo("en-US")
+            {
+                NumberFormat =
+                {
+                    NumberDecimalSeparator = "."
+                }
+            };
+            
+            Thread.CurrentThread.CurrentCulture = customCulture;
+            Thread.CurrentThread.CurrentUICulture = customCulture;
         }
         
         private void ButtonClick(object sender, RoutedEventArgs e)
@@ -51,39 +81,9 @@ namespace Program
             }
         }
         
-        public MainWindow()
+        public static void PreviousAction(string expression)
         {
-            InitializeComponent();
-            InitializeEventHandlers();
-            InitializeCustomCulture();
-        }
-
-        private void InitializeEventHandlers()
-        {
-            foreach (var button in MainGrid.Children)
-            {
-                if (button is Button btn)
-                {
-                    btn.Click += ButtonClick;
-                }
-            }
-            
-            MinWidth = 310;
-            MinHeight = 480;
-        }
-        
-        private void InitializeCustomCulture()
-        {
-            CultureInfo customCulture = new CultureInfo("en-US")
-            {
-                NumberFormat =
-                {
-                    NumberDecimalSeparator = "."
-                }
-            };
-            
-            Thread.CurrentThread.CurrentCulture = customCulture;
-            Thread.CurrentThread.CurrentUICulture = customCulture;
+            _previousAction = expression;
         }
     }
 }
