@@ -3,12 +3,10 @@ using System.Windows.Controls;
 
 namespace Program.Commands;
 
-public class Operation(TextBox textBox, string? operation, string? operationPattern) : ICommand
+public class Operation(TextBox textBox, string? operation, string? operationPattern, char[] operators) : ICommand
 {
     public void Execute()
     {
-        char[] operators = { '+', '-', '*', '/' };
-        
         string expression = textBox.Text;
         
         if (operation == ".")
@@ -46,7 +44,7 @@ public class Operation(TextBox textBox, string? operation, string? operationPatt
         {
             textBox.Text = textBox.Text.Substring(0, textBox.Text.Length - 1);
             
-            new Calculation(textBox).Execute();
+            new Calculation(textBox, operators).Execute();
             
             textBox.Text += operation;
         }

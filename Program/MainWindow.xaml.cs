@@ -1,9 +1,8 @@
 ﻿using System.Windows;
 using Program.Commands;
 using System.Globalization;
-using System.Text.RegularExpressions;
 using System.Windows.Controls;
-using Calendar = System.Windows.Controls.Calendar;
+using System.Text.RegularExpressions;
 
 namespace Program
 {
@@ -11,6 +10,14 @@ namespace Program
     {
         
         private readonly string _operationPattern = @"[+\-/*].*[+\-/*]";
+        private readonly char[] _operators = { '+', '-', '*', '/' };
+        private static string _previousAction = "";
+        
+        public static void PreviousAction(string expression)
+        {
+            _previousAction = expression;
+        }
+        
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
@@ -23,21 +30,21 @@ namespace Program
                         new ClearAll(TextBox).Execute();
                         break;
                     case "CE":
-                        new ClearEntry(TextBox).Execute();
+                        new ClearEntry(TextBox, _previousAction).Execute();
                         break;
                     case "⌫":
                         new RemoveLast(TextBox).Execute();
                         break;
                     case "=":
-                        new Calculation(TextBox).Execute();
+                        new Calculation(TextBox, _operators).Execute();
                         break;
                     default:
-                        new Operation(TextBox, buttonText, _operationPattern).Execute();
+                        new Operation(TextBox, buttonText, _operationPattern, _operators).Execute();
                         
                         if (Regex.IsMatch(TextBox.Text, _operationPattern))
                         {
-                            new Calculation(TextBox).Execute();
-                            new Operation(TextBox, buttonText, _operationPattern).Execute();
+                            new Calculation(TextBox, _operators).Execute();
+                            new Operation(TextBox, buttonText, _operationPattern, _operators).Execute();
                         }
                         break;
                 }

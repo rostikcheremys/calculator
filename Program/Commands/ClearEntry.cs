@@ -2,10 +2,14 @@
 
 namespace Program.Commands;
 
-public class ClearEntry(TextBox textBox) : ICommand
+public class ClearEntry(TextBox textBox, string previousExpression) : ICommand
 {
     public void Execute()
     {
-        textBox.Clear();
+        if (!string.IsNullOrEmpty(previousExpression))
+        {
+            textBox.Text = previousExpression;
+            previousExpression = "";
+        }
     }
 }
