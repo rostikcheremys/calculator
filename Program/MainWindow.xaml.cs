@@ -1,57 +1,49 @@
 ﻿using System.Windows;
 using Program.Commands;
 using System.Globalization;
+using System.Text.RegularExpressions;
 using System.Windows.Controls;
+using Calendar = System.Windows.Controls.Calendar;
 
 namespace Program
 {
     public partial class MainWindow : Window
     {
+        
+        private readonly string _operationPattern = @"[+\-/*].*[+\-/*]";
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
             {
                 string? buttonText = button.Content.ToString();
                 
-                if (Array.Exists(_numericButtons, element => element == buttonText))
+                switch (buttonText)
                 {
-                    new AppendText(TextBox, buttonText).Execute();
-                }
-                else if (Array.Exists(_operationButtons, element => element == buttonText))
-                {
-                    new Operation(TextBox, buttonText).Execute();
-                }
-                
-                else
-                {
-                    switch (buttonText)
-                    {
-                        case ".":
-                            new AppendPoint(TextBox).Execute();
-                            break;
-                        case "C":
-                            new ClearAll(TextBox).Execute();
-                            break;
-                        case "CE":
-                            new ClearEntry(TextBox).Execute();
-                            break;
-                        case "⌫":
-                            new RemoveLast(TextBox).Execute();
-                            break;
-                        case "=":
-                            new Сalculation(TextBox).Execute();
-                            break;
-                        default:
-                            new AppendText(TextBox, buttonText).Execute();
-                            break;
-                    }
+                    case "C":
+                        new ClearAll(TextBox).Execute();
+                        break;
+                    case "CE":
+                        new ClearEntry(TextBox).Execute();
+                        break;
+                    case "⌫":
+                        new RemoveLast(TextBox).Execute();
+                        break;
+                    case "=":
+                        new Calculation(TextBox).Execute();
+                        break;
+                    default:
+                        new Operation(TextBox, buttonText, _operationPattern).Execute();
+                        
+                        if (Regex.IsMatch(TextBox.Text, _operationPattern))
+                        {
+                            new Calculation(TextBox).Execute();
+                            new Operation(TextBox, buttonText, _operationPattern).Execute();
+                        }
+                        break;
                 }
             }
         }
         
-        private readonly string[]  _numericButtons = { "0", "1", "2", "3", "4", "5", "6", "7", "8", "9" };
-        private readonly string[] _operationButtons = { "+", "-", "×", "÷" };
-       
         public MainWindow()
         {
             InitializeComponent();

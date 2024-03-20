@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace Program.Commands;
 
-public class Сalculation(TextBox textBox) : ICommand
+public class Calculation(TextBox textBox) : ICommand
 {
     public void Execute()
     {
@@ -16,8 +16,8 @@ public class Сalculation(TextBox textBox) : ICommand
                 textBox.Text = result.ToString() ?? string.Empty;
             }
         }
-        catch (Exception ex)
-        {
+        catch (Exception)
+        { 
             return;
         }
     }
