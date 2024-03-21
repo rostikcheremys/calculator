@@ -11,7 +11,8 @@ public class Calculation(TextBox textBox) : ICommand
         {
             if (!string.IsNullOrEmpty(textBox.Text))
             {
-                object result = new DataTable().Compute(textBox.Text, "");
+                object result = new DataTable().Compute(textBox.Text.Replace('×', '*').Replace('÷', '/'), null);
+                
                 textBox.Text = result.ToString() ?? string.Empty;
             }
         }

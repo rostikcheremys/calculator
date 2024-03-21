@@ -22,7 +22,7 @@ public class Operation(TextBox textBox, string? operation, char[]? operators, st
             return;
         }
         
-        if (operation == "+" || operation == "-" || operation == "*" || operation == "/")
+        if (operation == "+" || operation == "-" || operation == "×" || operation == "÷")
         {
             if (expression.Length > 0)
             {
@@ -30,7 +30,7 @@ public class Operation(TextBox textBox, string? operation, char[]? operators, st
                 
                 if (lastChar == '.') return;
                 
-                if (lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == '/')
+                if (lastChar == '+' || lastChar == '-' || lastChar == '×' || lastChar == '÷')
                 {
                     textBox.Text = expression.Substring(0, expression.Length - 1);
                 }

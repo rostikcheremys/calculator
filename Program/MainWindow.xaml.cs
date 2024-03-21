@@ -8,8 +8,8 @@ namespace Program
 {
     public partial class MainWindow
     {
-        private readonly string _operationPattern = @"(?!\-\d+\s*[+\-\*/])[+\-/*].*[+\-/*]";
-        private readonly char[] _operators  = { '+', '-', '*', '/' };
+        private readonly string _operationPattern = @"(?!\-\d+\s*[+\-\×÷])[+\-÷×].*[+\-÷×]";
+        private readonly char[] _operators  = ['+', '-', '×', '÷'];
         
         public MainWindow()
         {
