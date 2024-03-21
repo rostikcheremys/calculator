@@ -3,7 +3,7 @@ using System.Text.RegularExpressions;
 
 namespace Program.Commands;
 
-public class Operation(TextBox textBox, string? operation, char[]? operators, string? operationPattern) : ICommand
+public class Operation(TextBox textBox, string? operation, char[]? operators, string? operationPattern, List<string[]> previousAction) : ICommand
 {
     public void Execute()
     {
@@ -43,7 +43,7 @@ public class Operation(TextBox textBox, string? operation, char[]? operators, st
         {
             textBox.Text = textBox.Text.Substring(0, textBox.Text.Length - 1);
             
-            new Calculation(textBox).Execute();
+            new Calculation(textBox, previousAction).Execute();
             
             textBox.Text += operation;
         }

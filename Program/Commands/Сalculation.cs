@@ -3,7 +3,7 @@ using System.Windows.Controls;
 
 namespace Program.Commands;
 
-public class Calculation(TextBox textBox) : ICommand
+public class Calculation(TextBox textBox, List<string[]> previousAction) : ICommand
 {
     public void Execute()
     {
@@ -12,6 +12,8 @@ public class Calculation(TextBox textBox) : ICommand
             if (!string.IsNullOrEmpty(textBox.Text))
             {
                 object result = new DataTable().Compute(textBox.Text.Replace('×', '*').Replace('÷', '/'), null);
+               
+                previousAction.Add(new[] { textBox.Text });
                 
                 textBox.Text = result.ToString() ?? string.Empty;
             }

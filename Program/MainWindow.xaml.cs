@@ -10,6 +10,7 @@ namespace Program
     {
         private readonly string _operationPattern = @"(?!\-\d+\s*[+\-\×÷])[+\-÷×].*[+\-÷×]";
         private readonly char[] _operators  = ['+', '-', '×', '÷'];
+        private readonly List<string[]> _previousAction = new();
         
         public MainWindow()
         {
@@ -58,21 +59,21 @@ namespace Program
                         new ClearAll(TextBox).Execute();
                         break;
                     case "CE":
-                        new ClearEntry(TextBox).Execute();
+                        new ClearEntry(TextBox, _previousAction).Execute();
                         break;
                     case "⌫":
                         new RemoveLast(TextBox).Execute();
                         break;
                     case "=":
-                        new Calculation(TextBox).Execute();
+                        new Calculation(TextBox, _previousAction).Execute();
                         break;
                     default:
-                        new Operation(TextBox, buttonText, _operators, _operationPattern).Execute();
+                        new Operation(TextBox, buttonText, _operators, _operationPattern, _previousAction).Execute();
                         
                         if (Regex.IsMatch(TextBox.Text, _operationPattern))
                         {
-                            new Calculation(TextBox).Execute();
-                            new Operation(TextBox, buttonText, _operators ,_operationPattern).Execute();
+                            new Calculation(TextBox, _previousAction).Execute();
+                            new Operation(TextBox, buttonText, _operators ,_operationPattern, _previousAction).Execute();
                         }
                         break;
                 }
