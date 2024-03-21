@@ -6,12 +6,9 @@ using System.Text.RegularExpressions;
 
 namespace Program
 {
-    public partial class MainWindow : Window
+    public partial class MainWindow
     {
-        
-        private readonly string _operationPattern = @"[+\-/*].*[+\-/*]";
-        private readonly char[] _operators = { '+', '-', '*', '/' };
-        private static string _previousAction = "";
+        private readonly string _operationPattern = @"(?!\-\d+\s*[+\-\*/])[+\-/*].*[+\-/*]";
         
         public MainWindow()
         {
@@ -22,7 +19,7 @@ namespace Program
 
         private void InitializeEventHandlers()
         {
-            foreach (var button in MainGrid.Children)
+            foreach (object button in MainGrid.Children)
             {
                 if (button is Button btn)
                 {
@@ -60,30 +57,25 @@ namespace Program
                         new ClearAll(TextBox).Execute();
                         break;
                     case "CE":
-                        new ClearEntry(TextBox, _previousAction).Execute();
+                        new ClearEntry(TextBox).Execute();
                         break;
                     case "⌫":
                         new RemoveLast(TextBox).Execute();
                         break;
                     case "=":
-                        new Calculation(TextBox, _operators).Execute();
+                        new Calculation(TextBox).Execute();
                         break;
                     default:
-                        new Operation(TextBox, buttonText, _operationPattern, _operators).Execute();
+                        new Operation(TextBox, buttonText, _operationPattern).Execute();
                         
                         if (Regex.IsMatch(TextBox.Text, _operationPattern))
                         {
-                            new Calculation(TextBox, _operators).Execute();
-                            new Operation(TextBox, buttonText, _operationPattern, _operators).Execute();
+                            new Calculation(TextBox).Execute();
+                            new Operation(TextBox, buttonText, _operationPattern).Execute();
                         }
                         break;
                 }
             }
-        }
-        
-        public static void PreviousAction(string expression)
-        {
-            _previousAction = expression;
         }
     }
 }

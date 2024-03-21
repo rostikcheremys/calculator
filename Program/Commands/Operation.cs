@@ -1,19 +1,20 @@
-﻿using System.Text.RegularExpressions;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
+using System.Text.RegularExpressions;
 
 namespace Program.Commands;
 
-public class Operation(TextBox textBox, string? operation, string? operationPattern, char[] operators) : ICommand
+public class Operation(TextBox textBox, string? operation, string? operationPattern) : ICommand
 {
     public void Execute()
     {
+        char[] operators = { '+', '-', '*', '/' };
+        
         string expression = textBox.Text;
         
         if (operation == ".")
         {
             if (expression.Length > 0 && char.IsDigit(expression[^1]))
             {
-               
                 if (!expression.Split(operators).Last().Contains('.'))
                 {
                     textBox.Text += operation;
@@ -22,8 +23,8 @@ public class Operation(TextBox textBox, string? operation, string? operationPatt
             
             return;
         }
-
-        if (operation == "+" || operation == "-" || operation == "×" || operation == "÷")
+        
+        if (operation == "+" || operation == "-" || operation == "*" || operation == "/")
         {
             if (expression.Length > 0)
             {
@@ -31,7 +32,7 @@ public class Operation(TextBox textBox, string? operation, string? operationPatt
                 
                 if (lastChar == '.') return;
                 
-                if (lastChar == '+' || lastChar == '-' || lastChar == '×' || lastChar == '÷')
+                if (lastChar == '+' || lastChar == '-' || lastChar == '*' || lastChar == '/')
                 {
                     textBox.Text = expression.Substring(0, expression.Length - 1);
                 }
@@ -44,7 +45,7 @@ public class Operation(TextBox textBox, string? operation, string? operationPatt
         {
             textBox.Text = textBox.Text.Substring(0, textBox.Text.Length - 1);
             
-            MainWindow.PreviousAction(textBox.Text.Split(operators)[0]);
+            new Calculation(textBox).Execute();
             
             textBox.Text += operation;
         }
