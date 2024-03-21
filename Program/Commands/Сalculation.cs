@@ -9,7 +9,6 @@ public class Calculation(TextBox textBox, char[]? operators) : ICommand
     {
         try
         {
-            
             if (!string.IsNullOrEmpty(textBox.Text))
             {
                 MainWindow.PreviousAction(textBox.Text.Split(operators)[0]);
