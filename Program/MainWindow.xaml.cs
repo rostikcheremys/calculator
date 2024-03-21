@@ -9,6 +9,7 @@ namespace Program
     public partial class MainWindow
     {
         private readonly string _operationPattern = @"(?!\-\d+\s*[+\-\*/])[+\-/*].*[+\-/*]";
+        private readonly char[] _operators  = { '+', '-', '*', '/' };
         
         public MainWindow()
         {
@@ -66,12 +67,12 @@ namespace Program
                         new Calculation(TextBox).Execute();
                         break;
                     default:
-                        new Operation(TextBox, buttonText, _operationPattern).Execute();
+                        new Operation(TextBox, buttonText, _operators, _operationPattern).Execute();
                         
                         if (Regex.IsMatch(TextBox.Text, _operationPattern))
                         {
                             new Calculation(TextBox).Execute();
-                            new Operation(TextBox, buttonText, _operationPattern).Execute();
+                            new Operation(TextBox, buttonText, _operators ,_operationPattern).Execute();
                         }
                         break;
                 }

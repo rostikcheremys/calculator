@@ -3,12 +3,10 @@ using System.Text.RegularExpressions;
 
 namespace Program.Commands;
 
-public class Operation(TextBox textBox, string? operation, string? operationPattern) : ICommand
+public class Operation(TextBox textBox, string? operation, char[]? operators, string? operationPattern) : ICommand
 {
     public void Execute()
     {
-        char[] operators = { '+', '-', '*', '/' };
-        
         string expression = textBox.Text;
         
         if (operation == ".")
