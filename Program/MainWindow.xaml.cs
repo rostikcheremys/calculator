@@ -11,12 +11,56 @@ namespace Program
         private readonly string _operationPattern = @"(?<!\d\s*[-+*/])\d+\s*[+\-/*]\s*\d+\s*[+\-/*]";
         private readonly char[] _operators  = ['+', '-', '×', '÷'];
         private readonly List<string[]> _previousAction = new();
+
+        private void RemoveButtons()
+        {
+            MainGrid.Children.Remove(ButtonPі);
+            MainGrid.Children.Remove(ButtonExp);
+            MainGrid.Children.Remove(ButtonRoot);
+            MainGrid.Children.Remove(ButtonPower);
+            MainGrid.Children.Remove(ButtonLn);
+            
+            ChangeColumnCount(4);
+        }
+
+        private void AddButton(Button button, int column, int row)
+        {
+            Grid.SetColumn(button, column);
+            Grid.SetRow(button, row);
+            
+            MainGrid.Children.Add(button);
+        }
+
+        private void AddButtons()
+        {
+            AddButton(ButtonPі, 4, 1);
+            AddButton(ButtonExp, 4, 2);
+            AddButton(ButtonRoot, 4, 3);
+            AddButton(ButtonPower, 4, 4);
+            AddButton(ButtonLn, 4, 5);
+
+            ChangeColumnCount(5);
+        }
         
         public MainWindow()
         {
             InitializeComponent();
             InitializeEventHandlers();
             InitializeCustomCulture();
+            RemoveButtons();
+        }
+        
+        private void ChangeColumnCount(int columnCount)
+        {
+            while (MainGrid.ColumnDefinitions.Count < columnCount)
+            {
+                MainGrid.ColumnDefinitions.Add(new ColumnDefinition());
+            }
+
+            while (MainGrid.ColumnDefinitions.Count > columnCount)
+            {
+                MainGrid.ColumnDefinitions.RemoveAt(MainGrid.ColumnDefinitions.Count - 1);
+            }
         }
 
         private void InitializeEventHandlers()
@@ -29,7 +73,7 @@ namespace Program
                 }
             }
             
-            MinWidth = 310;
+            MinWidth = 330;
             MinHeight = 480;
         }
         
@@ -66,6 +110,14 @@ namespace Program
                         break;
                     case "=":
                         new Calculation(TextBox, _previousAction).Execute();
+                        break;
+                    case "☰":
+                        ((Button)e.OriginalSource).Content = "<";
+                        AddButtons();
+                        break;
+                    case "<":
+                        ((Button)e.OriginalSource).Content = "☰";
+                        RemoveButtons();
                         break;
                     default:
                         new Operation(TextBox, buttonText, _operators, _operationPattern, _previousAction).Execute();
