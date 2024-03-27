@@ -12,6 +12,14 @@ namespace Program
         private readonly char[] _operators = ['+', '-', '×', '÷'];
         private readonly List<string[]> _previousAction = new();
 
+        public MainWindow()
+        {
+            InitializeComponent();
+            InitializeEventHandlers();
+            InitializeCustomCulture();
+            RemoveButtons();
+        }
+        
         private void RemoveButtons()
         {
             MainGrid.Children.Remove(ButtonPі);
@@ -22,15 +30,7 @@ namespace Program
 
             ChangeColumnCount(4);
         }
-
-        private void AddButton(Button button, int column, int row)
-        {
-            Grid.SetColumn(button, column);
-            Grid.SetRow(button, row);
-
-            MainGrid.Children.Add(button);
-        }
-
+        
         private void AddButtons()
         {
             AddButton(ButtonPі, 4, 1);
@@ -41,15 +41,15 @@ namespace Program
 
             ChangeColumnCount(5);
         }
-
-        public MainWindow()
+        
+        private void AddButton(Button button, int column, int row)
         {
-            InitializeComponent();
-            InitializeEventHandlers();
-            InitializeCustomCulture();
-            RemoveButtons();
-        }
+            Grid.SetColumn(button, column);
+            Grid.SetRow(button, row);
 
+            MainGrid.Children.Add(button);
+        }
+        
         private void ChangeColumnCount(int columnCount)
         {
             while (MainGrid.ColumnDefinitions.Count < columnCount)
