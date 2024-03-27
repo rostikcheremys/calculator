@@ -121,7 +121,7 @@ namespace Program
                         break;
                     default:
                         new Operation(TextBox, buttonText, _operators, _operationPattern, _previousAction).Execute();
-                        //new MathOperations(TextBox, _previousAction).Execute();
+                        new MathOperations(TextBox, _operators).Execute();
                         
                         if (Regex.IsMatch(TextBox.Text, _operationPattern))
                         {
