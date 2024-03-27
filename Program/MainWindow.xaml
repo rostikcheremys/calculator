@@ -49,7 +49,7 @@
         <Button Grid.Row="4" Grid.Column="1" Content="2" FontSize="25" Margin="1" Foreground="White" Background="#202020" BorderBrush="Transparent"/>
         <Button Grid.Row="4" Grid.Column="2" Content="3" FontSize="25" Margin="1" Foreground="White" Background="#202020" BorderBrush="Transparent"/>
         <Button Grid.Row="4" Grid.Column="3" Grid.RowSpan="2" Content="+" FontSize="25" Margin="1" Foreground="White" Background="#202020" BorderBrush="Transparent"/>
-        <Button x:Name="ButtonPower" Grid.Row="4" Grid.Column="4" Content="n^x" FontSize="25" Margin="1" Foreground="White" Background="#202020" BorderBrush="Transparent"/>
+        <Button x:Name="ButtonPower" Grid.Row="4" Grid.Column="4" Content="n^2" FontSize="25" Margin="1" Foreground="White" Background="#202020" BorderBrush="Transparent"/>
         
         <Button Grid.Row="5" Grid.Column="0" Content="0" FontSize="25" Margin="1" Foreground="White" Background="#202020" BorderBrush="Transparent"/>
         <Button Grid.Row="5" Grid.Column="1" Content="." FontSize="25" Margin="1" Foreground="White" Background="#202020" BorderBrush="Transparent"/>
