@@ -8,7 +8,7 @@ namespace Program
 {
     public partial class MainWindow
     {
-        private readonly string _operationPattern = @"(?<!\d\s*[-+*/])\d+\s*[+\-/*]\s*\d+\s*[+\-/*]";
+        private readonly string _operationPattern = @"(?<!\d\s*[-+×÷])\d+\s*[+\-÷×]\s*\d+\s*[+\-÷×]";
         private readonly char[] _operators  = ['+', '-', '×', '÷'];
         private readonly List<string[]> _previousAction = new();
 
@@ -110,7 +110,7 @@ namespace Program
                         break;
                     case "=":
                         new Calculation(TextBox, _previousAction).Execute();
-                        break;
+                        break; ;
                     case "☰":
                         ((Button)e.OriginalSource).Content = "<";
                         AddButtons();
@@ -121,6 +121,7 @@ namespace Program
                         break;
                     default:
                         new Operation(TextBox, buttonText, _operators, _operationPattern, _previousAction).Execute();
+                        //new MathOperations(TextBox, _previousAction).Execute();
                         
                         if (Regex.IsMatch(TextBox.Text, _operationPattern))
                         {

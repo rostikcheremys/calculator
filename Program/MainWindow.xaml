@@ -23,7 +23,7 @@
             <ColumnDefinition/>
         </Grid.ColumnDefinitions>
         
-        <TextBox x:Name="TextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="10 10 5 10 " FontSize="30" Foreground="White" Background="#2a2a2a" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
+        <TextBox x:Name="TextBox" Grid.Row="0" Grid.Column="0" Grid.ColumnSpan="5" Margin="10 10 5 10 " FontSize="25" Foreground="White" Background="#2a2a2a" BorderBrush="Transparent" BorderThickness="0" HorizontalAlignment="Right" VerticalAlignment="Bottom" />
         
         <Button Grid.Row="0" Grid.Column="0" Content="☰" FontSize="20" Foreground="White" Background="#202020" BorderBrush="Transparent" Width="40" Height="40" HorizontalAlignment="Left" VerticalAlignment="Top"/>
         
