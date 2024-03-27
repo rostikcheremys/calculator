@@ -4,37 +4,32 @@ namespace Program.Commands;
 
 public class MathOperations(TextBox textBox, char[] operators) : ICommand
 {
+    private readonly Dictionary<string, Func<double, double>?> _mathOperators = new()
+    {
+        { "√", Math.Sqrt },
+        { "π", number => number * Math.PI },
+        { "e", Math.Exp },
+        { "n^2", number => Math.Pow(number, 2) },
+        { "ln", Math.Log }
+    };
+
     public void Execute()
     {
         string expression = textBox.Text;
-        
-        if (expression.EndsWith("√"))
-        {
-            ProcessMathOperation("√");
-        }
 
-        if (expression.EndsWith("π"))
-        {
-            ProcessMathOperation("π");
-        }
+        string[] mathOperators = { "√", "π", "e", "n^2", "ln" };
 
-        if (expression.EndsWith("e"))
+        foreach (string mathOperator in mathOperators)
         {
-            ProcessMathOperation("e");
-        }
-        
-        if (expression.EndsWith("n^2"))
-        {
-            ProcessMathOperation("n^2");
-        }
-
-        if (expression.EndsWith("ln"))
-        {
-            ProcessMathOperation("ln");
+            if (expression.EndsWith(mathOperator))
+            {
+                MathOperation(mathOperator);
+                break;
+            }
         }
     }
-    
-    private void ProcessMathOperation(string mathOperator)
+
+    private void MathOperation(string mathOperator)
     {
         string expression = textBox.Text;
 
@@ -43,33 +38,22 @@ public class MathOperations(TextBox textBox, char[] operators) : ICommand
             expression = expression.Remove(expression.Length - mathOperator.Length);
 
             string[] parts = expression.Split(operators, StringSplitOptions.RemoveEmptyEntries);
-            
-            string lastNumberString = parts[^1].Trim();
 
-            if (double.TryParse(lastNumberString, out double number))
+            if (parts.Length > 0)
             {
-                double result = 0;
+                string lastNumberString = parts[^1].Trim();
 
-                switch (mathOperator)
+                if (double.TryParse(lastNumberString, out double number))
                 {
-                    case "√":
-                        result = Math.Sqrt(number);
-                        break;
-                    case "π":
-                        result = number * Math.PI;
-                        break;
-                    case "e":
-                        result = Math.Exp(number);
-                        break;
-                    case "n^2":
-                        result = Math.Pow(number, 2);
-                        break;
-                    case "ln":
-                        result = Math.Log(number);
-                        break;
-                }
+                    if (_mathOperators.TryGetValue(mathOperator, out Func<double, double>? operation))
+                    {
+                        operation!.Invoke(number);
 
-                textBox.Text = expression.Substring(0, expression.Length - lastNumberString.Length) + result;
+                        double result = operation.Invoke(number);
+                        
+                        textBox.Text = expression.Substring(0, expression.Length - lastNumberString.Length) + result;
+                    }
+                }
             }
         }
     }

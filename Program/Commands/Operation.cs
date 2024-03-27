@@ -18,7 +18,6 @@ public class Operation(TextBox textBox, string? operation, char[]? operators, st
                     textBox.Text += operation;
                 }
             }
-            
             return;
         }
         

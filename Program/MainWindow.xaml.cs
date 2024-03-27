@@ -9,7 +9,7 @@ namespace Program
     public partial class MainWindow
     {
         private readonly string _operationPattern = @"(?<!\d\s*[-+×÷])\d+\s*[+\-÷×]\s*\d+\s*[+\-÷×]";
-        private readonly char[] _operators  = ['+', '-', '×', '÷'];
+        private readonly char[] _operators = ['+', '-', '×', '÷'];
         private readonly List<string[]> _previousAction = new();
 
         private void RemoveButtons()
@@ -19,7 +19,7 @@ namespace Program
             MainGrid.Children.Remove(ButtonRoot);
             MainGrid.Children.Remove(ButtonPower);
             MainGrid.Children.Remove(ButtonLn);
-            
+
             ChangeColumnCount(4);
         }
 
@@ -27,7 +27,7 @@ namespace Program
         {
             Grid.SetColumn(button, column);
             Grid.SetRow(button, row);
-            
+
             MainGrid.Children.Add(button);
         }
 
@@ -41,7 +41,7 @@ namespace Program
 
             ChangeColumnCount(5);
         }
-        
+
         public MainWindow()
         {
             InitializeComponent();
@@ -49,7 +49,7 @@ namespace Program
             InitializeCustomCulture();
             RemoveButtons();
         }
-        
+
         private void ChangeColumnCount(int columnCount)
         {
             while (MainGrid.ColumnDefinitions.Count < columnCount)
@@ -72,11 +72,11 @@ namespace Program
                     btn.Click += ButtonClick;
                 }
             }
-            
+
             MinWidth = 330;
             MinHeight = 480;
         }
-        
+
         private void InitializeCustomCulture()
         {
             CultureInfo customCulture = new CultureInfo("en-US")
@@ -86,16 +86,17 @@ namespace Program
                     NumberDecimalSeparator = "."
                 }
             };
-            
+
             Thread.CurrentThread.CurrentCulture = customCulture;
             Thread.CurrentThread.CurrentUICulture = customCulture;
         }
-        
+
         private void ButtonClick(object sender, RoutedEventArgs e)
         {
             if (sender is Button button)
             {
                 string? buttonText = button.Content.ToString();
+                string expression = TextBox.Text;
                 
                 switch (buttonText)
                 {
@@ -110,7 +111,7 @@ namespace Program
                         break;
                     case "=":
                         new Calculation(TextBox, _previousAction).Execute();
-                        break; ;
+                        break;
                     case "☰":
                         ((Button)e.OriginalSource).Content = "<";
                         AddButtons();
@@ -120,13 +121,21 @@ namespace Program
                         RemoveButtons();
                         break;
                     default:
+                        if (expression.Length == 0 || _operators.Contains(expression.LastOrDefault()))
+                        {
+                            if (buttonText == "√" || buttonText == "π" || buttonText == "e" || buttonText == "n^2" || buttonText == "ln")
+                            {
+                                return;
+                            }
+                        }
+                        
                         new Operation(TextBox, buttonText, _operators, _operationPattern, _previousAction).Execute();
                         new MathOperations(TextBox, _operators).Execute();
                         
                         if (Regex.IsMatch(TextBox.Text, _operationPattern))
                         {
                             new Calculation(TextBox, _previousAction).Execute();
-                            new Operation(TextBox, buttonText, _operators ,_operationPattern, _previousAction).Execute();
+                            new Operation(TextBox, buttonText, _operators, _operationPattern, _previousAction).Execute();
                         }
                         break;
                 }
